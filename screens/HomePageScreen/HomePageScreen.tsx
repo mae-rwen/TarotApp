@@ -1,33 +1,100 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { textPresets } from "@/constants/theme/typography";
 import TarotCard from "@/components/TarotCard";
 import { cardRegistry } from "@/assets/images/tarotCards/cardRegistry";
 import { spacing } from "@/constants/theme/spacing";
 import Button from "@/components/Button";
-
 import AppModal from "@/components/AppModal";
 import DatePicker from "@/components/DatePicker";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
+
+type userDetails = {
+  birthdate: string;
+  day: string;
+  month: string;
+  year: string;
+};
+
+type userData = Record<string, userDetails>;
 
 const HomePageScreen = () => {
   const [newTPmodalVisible, setNewTPmodalVisible] = useState<boolean>(false);
-  const [inputBoxValue, setInputBoxValue] = useState("");
   const [datePickerVisible, setDatePickerVisible] = useState<boolean>(false);
+  const [confirmModalVisible, setConfirmModalVisible] =
+    useState<boolean>(false);
+  const [actionModalVisible, setActionModalVisible] = useState<boolean>(false);
+
+  const [inputBoxValue, setInputBoxValue] = useState("");
   const [date, setDate] = useState<Date>(new Date());
+
+  const [temporaryData, setTemporaryData] = useState<{
+    name: string;
+    details: userDetails;
+  } | null>(null);
+  const [savedData, setSavedData] = useState<
+    {
+      name: string;
+      details: userDetails;
+    }[]
+  >([]);
+  const [selectedUser, setSelectedUser] = useState<{
+    name: string;
+    details: userDetails;
+  } | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const existingData = await AsyncStorage.getItem("tppData");
+      if (existingData) {
+        const parsedData: userData = JSON.parse(existingData);
+
+        // Map data into a format suitable for rendering
+        const formattedData = Object.entries(parsedData).map(
+          ([name, details]) => ({
+            name,
+            details,
+          })
+        );
+        setSavedData(formattedData);
+      } else {
+        console.log("No existing data found.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const formatDate = (
+    date: Date
+  ): { formatted: string; dd: string; mm: string; yyyy: string } => {
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-indexed
+    const yyyy = String(date.getFullYear());
+    return { formatted: `${dd}.${mm}.${yyyy}`, dd, mm, yyyy };
+  };
+
+  const cancel = () => {
+    setNewTPmodalVisible(false);
+    setConfirmModalVisible(false);
+    setActionModalVisible(false);
+    setTemporaryData(null);
+    setInputBoxValue("");
+  };
 
   const newPortrait = () => {
     setNewTPmodalVisible(true);
   };
+
   const saveNewPortrait = () => {
-    console.log("Save btn clicked");
     setNewTPmodalVisible(false);
     setDatePickerVisible(true);
-  };
-  const cancelNewPortrait = () => {
-    console.log("Cancel btn clicked");
-    setNewTPmodalVisible(false);
-    setInputBoxValue("");
   };
 
   const onDateChange = async (
@@ -36,11 +103,55 @@ const HomePageScreen = () => {
   ) => {
     if (selectedDate && event.type === "set") {
       setDate(selectedDate);
-      console.log(selectedDate);
+
+      const formattedDate = formatDate(selectedDate);
+
+      // Temporary data to confirm
+      const tempData = {
+        name: inputBoxValue,
+        details: {
+          birthdate: formattedDate.formatted,
+          day: formattedDate.dd,
+          month: formattedDate.mm,
+          year: formattedDate.yyyy,
+        },
+      };
+
+      setTemporaryData(tempData);
       setDatePickerVisible(false);
+      setConfirmModalVisible(true);
     } else {
       setDatePickerVisible(false);
     }
+  };
+
+  const saveData = async () => {
+    if (temporaryData) {
+      try {
+        const existingTPPData = await AsyncStorage.getItem("tppData");
+        const parsedData = existingTPPData ? JSON.parse(existingTPPData) : {};
+        parsedData[temporaryData.name] = temporaryData.details;
+        await AsyncStorage.setItem("tppData", JSON.stringify(parsedData));
+
+        setSavedData((prevData) => [...prevData, temporaryData]);
+        const newTPP = temporaryData;
+        setTemporaryData(null);
+        setConfirmModalVisible(false);
+        setInputBoxValue("");
+
+        // router.push({
+        //   pathname: "/tpp",
+        //   params: { user: JSON.stringify(newTPP) },
+        // });
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    }
+  };
+
+  const handleDataClick = (data: { name: string; details: userDetails }) => {
+    setSelectedUser(data);
+    setActionModalVisible(true);
   };
 
   return (
@@ -49,6 +160,18 @@ const HomePageScreen = () => {
       <TarotCard source={cardRegistry.revers} style={styles.welcomeCard} />
       <View style={styles.btnContainer}>
         <Button label="Create a portrait" onPress={newPortrait} />
+      </View>
+      <View style={styles.btnContainer}>
+        {savedData.length > 0
+          ? savedData.map((data, index) => (
+              <Button
+                key={index}
+                preset="filled"
+                label={data.name}
+                onPress={() => handleDataClick(data)}
+              />
+            ))
+          : null}
       </View>
 
       {/* Modal for setting new TPP */}
@@ -73,17 +196,71 @@ const HomePageScreen = () => {
             label: "Cancel",
             onPress: () => {
               {
-                cancelNewPortrait();
+                cancel();
               }
             },
             preset: "reversed",
           },
         ]}
-        onClose={() => setNewTPmodalVisible(!newTPmodalVisible)}
+        onClose={() => setNewTPmodalVisible(false)}
+      />
+
+      {/* Modal for name & date confirmation */}
+      <AppModal
+        visible={confirmModalVisible}
+        title="Save this data?"
+        content={`${temporaryData?.name} ${temporaryData?.details.birthdate}`}
+        buttons={[
+          {
+            label: "Save",
+            onPress: () => {
+              {
+                saveData();
+              }
+            },
+            preset: "filled",
+          },
+          {
+            label: "Cancel",
+            onPress: () => {
+              {
+                cancel();
+              }
+            },
+            preset: "reversed",
+          },
+        ]}
+        onClose={() => setConfirmModalVisible(false)}
+      />
+
+      {/* Action modal */}
+      <AppModal
+        visible={actionModalVisible}
+        title="Portrait for"
+        content={`${selectedUser?.name} ${selectedUser?.details.birthdate}`}
+        buttons={[
+          {
+            label: "See portrait",
+            onPress: () => {
+              {
+              }
+            },
+            preset: "filled",
+          },
+          {
+            label: "Cancel",
+            onPress: () => {
+              {
+                cancel();
+              }
+            },
+            preset: "reversed",
+          },
+        ]}
+        onClose={() => setActionModalVisible(false)}
       />
 
       {/* DatePicker Modal */}
-
       {datePickerVisible && <DatePicker value={date} onChange={onDateChange} />}
     </View>
   );
@@ -94,5 +271,11 @@ export default HomePageScreen;
 const styles = StyleSheet.create({
   container: { alignItems: "center", gap: spacing.lg },
   welcomeCard: { width: 320, height: 520 },
-  btnContainer: {},
+  btnContainer: {
+    flexDirection: "row",
+    gap: spacing.sm,
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "baseline",
+  },
 });

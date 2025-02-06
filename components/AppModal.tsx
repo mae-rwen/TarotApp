@@ -57,7 +57,7 @@ export default function AppModal({
           {/* Content */}
           <View style={styles.modalContent}>
             {typeof content === "string" ? (
-              <Text style={textPresets.copy}>{content}</Text>
+              <Text style={textPresets.h3regular}>{content}</Text>
             ) : (
               content
             )}
