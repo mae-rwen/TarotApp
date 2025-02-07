@@ -4,15 +4,15 @@ export default function HomeLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "Home" }} />
-      {/* <Stack.Screen
-        name="tpp"
+      <Stack.Screen
+        name="portrait"
         options={({ route }) => ({
           title: route.params?.user
             ? `Portrait for ${JSON.parse(route.params.user).name}`
             : "Portrait",
           headerShown: true,
         })}
-      /> */}
+      />
     </Stack>
   );
 }

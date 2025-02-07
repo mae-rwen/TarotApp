@@ -9,7 +9,7 @@ import AppModal from "@/components/AppModal";
 import DatePicker from "@/components/DatePicker";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 type userDetails = {
   birthdate: string;
@@ -67,9 +67,29 @@ const HomePageScreen = () => {
     }
   };
 
+  const cancel = () => {
+    setNewTPmodalVisible(false);
+    setDatePickerVisible(false);
+    setConfirmModalVisible(false);
+    setTemporaryData(null);
+    setInputBoxValue("");
+    setSelectedUser(null);
+    setActionModalVisible(false);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset any state or perform any actions needed when the screen is focused
+      cancel();
+      return () => {
+        // Cleanup if needed when the screen is unfocused
+      };
+    }, [])
+  );
 
   const formatDate = (
     date: Date
@@ -78,14 +98,6 @@ const HomePageScreen = () => {
     const mm = String(date.getMonth() + 1).padStart(2, "0"); // Month is 0-indexed
     const yyyy = String(date.getFullYear());
     return { formatted: `${dd}.${mm}.${yyyy}`, dd, mm, yyyy };
-  };
-
-  const cancel = () => {
-    setNewTPmodalVisible(false);
-    setConfirmModalVisible(false);
-    setActionModalVisible(false);
-    setTemporaryData(null);
-    setInputBoxValue("");
   };
 
   const newPortrait = () => {
@@ -139,10 +151,10 @@ const HomePageScreen = () => {
         setConfirmModalVisible(false);
         setInputBoxValue("");
 
-        // router.push({
-        //   pathname: "/tpp",
-        //   params: { user: JSON.stringify(newTPP) },
-        // });
+        router.push({
+          pathname: "/portrait",
+          params: { user: JSON.stringify(newTPP) },
+        });
       } catch (error) {
         console.error("Error saving data:", error);
       }
@@ -152,6 +164,13 @@ const HomePageScreen = () => {
   const handleDataClick = (data: { name: string; details: userDetails }) => {
     setSelectedUser(data);
     setActionModalVisible(true);
+  };
+
+  const goToPortrait = () => {
+    router.push({
+      pathname: "/portrait",
+      params: { user: JSON.stringify(selectedUser) },
+    });
   };
 
   return (
@@ -243,6 +262,7 @@ const HomePageScreen = () => {
             label: "See portrait",
             onPress: () => {
               {
+                goToPortrait();
               }
             },
             preset: "filled",
