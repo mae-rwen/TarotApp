@@ -171,6 +171,7 @@ const HomePageScreen = () => {
       pathname: "/portrait",
       params: { user: JSON.stringify(selectedUser) },
     });
+    setActionModalVisible(false);
   };
 
   return (
@@ -290,7 +291,10 @@ export default HomePageScreen;
 
 const styles = StyleSheet.create({
   container: { alignItems: "center", gap: spacing.lg },
-  welcomeCard: { width: 320, height: 520 },
+  welcomeCard: {
+    width: (762 / 2) * 0.75,
+    height: (1280 / 2) * 0.75,
+  },
   btnContainer: {
     flexDirection: "row",
     gap: spacing.sm,

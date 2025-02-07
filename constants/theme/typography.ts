@@ -47,7 +47,7 @@ export const textPresets = {
     ...sizeStyles.xl,
     ...fontWeightStyles.semiBold,
   } as TextStyle,
-  h2regular: { ...baseStyle, ...sizeStyles.xl },
+  h2regular: { ...baseStyle, ...sizeStyles.xl } as TextStyle,
 
   h3: {
     ...baseStyle,

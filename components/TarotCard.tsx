@@ -2,7 +2,7 @@ import { StyleSheet, type StyleProp, type ImageStyle } from "react-native";
 import { Image } from "expo-image";
 
 type TarotCardProps = {
-  source: number;
+  source: string;
   style?: StyleProp<ImageStyle>;
 };
 
@@ -12,8 +12,8 @@ export default function TarotCard({ source, style }: TarotCardProps) {
 
 const styles = StyleSheet.create({
   image: {
-    // width: 320,
-    // height: 520,
+    width: 762 / 2,
+    height: 1280 / 2,
     borderRadius: 10,
   },
 });

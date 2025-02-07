@@ -1,7 +1,7 @@
 import { colors } from "@/constants/theme/colors";
 import { spacing } from "@/constants/theme/spacing";
-import HomePageScreen from "@/screens/HomePageScreen/HomePageScreen";
-import { ScrollView, StyleSheet, View } from "react-native";
+import HomePageScreen from "@/screens/HomePageScreen";
+import { ScrollView, StyleSheet } from "react-native";
 
 export default function Index() {
   return (
