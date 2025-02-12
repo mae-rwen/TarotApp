@@ -196,69 +196,69 @@ const PortraitScreen = () => {
         <View style={styles.mainGrid}>
           <View style={styles.gridUpperRow}>
             <View style={styles.cardView}>
-              <Text>{`+ ${card13Plus}`}</Text>
-              <Text>{`- ${card13Minus}`}</Text>
+              <Text style={textPresets.copy}>{`+ ${card13Plus}`}</Text>
+              <Text style={textPresets.copy}>{`- ${card13Minus}`}</Text>
               <TarotCard
                 source={cardRegistry[card13]}
                 style={styles.gridCard}
               />
-              <Text>p13</Text>
+              <Text style={textPresets.copy}>p13</Text>
             </View>
             <View style={styles.cardView}>
-              <Text>{`+ ${card14Plus}`}</Text>
-              <Text>{`- ${card14Minus}`}</Text>
+              <Text style={textPresets.copy}>{`+ ${card14Plus}`}</Text>
+              <Text style={textPresets.copy}>{`- ${card14Minus}`}</Text>
               <TarotCard
                 source={cardRegistry[card14]}
                 style={styles.gridCard}
               />
-              <Text>p14</Text>
+              <Text style={textPresets.copy}>p14</Text>
             </View>
           </View>
           <View style={styles.gridRowOne}>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card1]} style={styles.gridCard} />
-              <Text>p1</Text>
+              <Text style={textPresets.copy}>p1</Text>
             </View>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card2]} style={styles.gridCard} />
-              <Text>p2</Text>
+              <Text style={textPresets.copy}>p2</Text>
             </View>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card3]} style={styles.gridCard} />
-              <Text>p3</Text>
+              <Text style={textPresets.copy}>p3</Text>
             </View>
           </View>
           <View style={styles.gridRowTwo}>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card4]} style={styles.gridCard} />
-              <Text>p4</Text>
+              <Text style={textPresets.copy}>p4</Text>
             </View>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card5]} style={styles.gridCard} />
-              <Text>p5</Text>
+              <Text style={textPresets.copy}>p5</Text>
             </View>
           </View>
           <View style={styles.gridRowThree}>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card6]} style={styles.gridCard} />
-              <Text>p6</Text>
+              <Text style={textPresets.copy}>p6</Text>
             </View>
           </View>
           <View style={styles.gridLowerRow}>
             <View style={styles.cardView}>
               <TarotCard source={cardRegistry[card8]} style={styles.gridCard} />
-              <Text>p8</Text>
+              <Text style={textPresets.copy}>p8</Text>
             </View>
           </View>
         </View>
         <View style={styles.sideGridContainer}>
           <View style={styles.cardView}>
             <TarotCard source={cardRegistry[card7]} style={styles.gridCard} />
-            <Text>p7</Text>
+            <Text style={textPresets.copy}>p7</Text>
           </View>
           <View style={styles.cardView}>
             <TarotCard source={cardRegistry[card12]} style={styles.gridCard} />
-            <Text>p12</Text>
+            <Text style={textPresets.copy}>p12</Text>
           </View>
         </View>
       </View>
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   cardView: { alignItems: "center" },
 
   gridContainer: { paddingHorizontal: spacing.xxl, flexDirection: "row" },
-  mainGrid: { gap: spacing.sm },
+  mainGrid: { gap: spacing.xs },
   gridUpperRow: {
     width: "100%",
     flexDirection: "row",
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   gridLowerRow: { flexDirection: "row", justifyContent: "center" },
   sideGridContainer: {
     paddingTop: spacing.xxxl,
-    gap: spacing.md,
+    gap: spacing.sm,
     justifyContent: "space-evenly",
   },
 });

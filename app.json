@@ -14,7 +14,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#61447E"
+        "backgroundColor": "#F7F4FB"
       },
       "package": "com.agatart.TarotApp"
     },
@@ -31,7 +31,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#61447E"
+          "backgroundColor": "#F7F4FB"
         }
       ],
       "expo-font"

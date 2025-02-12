@@ -10,6 +10,7 @@ import DatePicker from "@/components/DatePicker";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, useFocusEffect } from "expo-router";
+import { colors } from "@/constants/theme/colors";
 
 type userDetails = {
   birthdate: string;
@@ -176,10 +177,29 @@ const CalculatorScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={textPresets.h1s}>Tarot App</Text>
-      <TarotCard source={cardRegistry.revers} style={styles.welcomeCard} />
+      <Text style={textPresets.h1s}>Tarot Psychological Portrait</Text>
+      <View style={styles.contentBox}>
+        <Text style={textPresets.copy}>
+          Tarot Psychological Portrait is used to examine and analyze the innate
+          potentials of a given individual, their talents and predispositions,
+          the influences they were subjected to in childhood and to which they
+          are susceptible in adult life. The best ways to realize emerging
+          opportunities, significant and turning moments in life, as well as
+          those hidden in the subconscious fears, complexes or, as it is called
+          in esoteric language - things to work through. Using the archetypes
+          written in the Major Arcana of the Tarot, substituting the appropriate
+          cards for the numbers resulting from the date of birth allows one to
+          see something like a genetic code with which a person comes into the
+          world.
+        </Text>
+        <Text style={textPresets.copy}>
+          This method, created by Alla Alicja Chrzanowska is taught in
+          workshops, and the meaning of each item is explained thoroughly during
+          the course.
+        </Text>
+      </View>
       <View style={styles.btnContainer}>
-        <Button label="Create a portrait" onPress={newPortrait} />
+        <Button label="Create new portrait" onPress={newPortrait} />
       </View>
       <View style={styles.btnContainer}>
         {savedData.length > 0
@@ -291,9 +311,11 @@ export default CalculatorScreen;
 
 const styles = StyleSheet.create({
   container: { alignItems: "center", gap: spacing.lg },
-  welcomeCard: {
-    width: (762 / 2) * 0.75,
-    height: (1280 / 2) * 0.75,
+  contentBox: {
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: colors.contentBox,
+    borderRadius: 10,
   },
   btnContainer: {
     flexDirection: "row",

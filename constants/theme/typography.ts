@@ -3,10 +3,10 @@ import { colors } from "./colors";
 
 const sizeStyles = {
   xxl: { fontSize: 28, lineHeight: 34 },
-  xl: { fontSize: 22, lineHeight: 26 },
-  lg: { fontSize: 20, lineHeight: 24 },
-  md: { fontSize: 18, lineHeight: 21 },
-  sm: { fontSize: 16, lineHeight: 19 },
+  xl: { fontSize: 22, lineHeight: 28 },
+  lg: { fontSize: 20, lineHeight: 26 },
+  md: { fontSize: 18, lineHeight: 23 },
+  sm: { fontSize: 16, lineHeight: 21 },
   xs: { fontSize: 14, lineHeight: 16 },
   xxs: { fontSize: 12, lineHeight: 14 },
 };

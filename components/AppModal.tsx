@@ -57,7 +57,7 @@ export default function AppModal({
           {/* Content */}
           <View style={styles.modalContent}>
             {typeof content === "string" ? (
-              <Text style={textPresets.h3regular}>{content}</Text>
+              <Text style={textPresets.h4regular}>{content}</Text>
             ) : (
               content
             )}
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+    marginBottom: spacing.xs,
   },
   input: {
     height: 56,
