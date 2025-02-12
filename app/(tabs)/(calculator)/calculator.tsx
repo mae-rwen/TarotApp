@@ -1,12 +1,12 @@
 import { colors } from "@/constants/theme/colors";
 import { spacing } from "@/constants/theme/spacing";
-import AboutScreen from "@/screens/AboutScreen";
+import CalculatorScreen from "@/screens/CalculatorScreen";
 import { ScrollView, StyleSheet } from "react-native";
 
-export default function About() {
+export default function Calculator() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <AboutScreen />
+      <CalculatorScreen />
     </ScrollView>
   );
 }

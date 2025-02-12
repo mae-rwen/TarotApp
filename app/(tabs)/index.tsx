@@ -1,12 +1,12 @@
 import { colors } from "@/constants/theme/colors";
 import { spacing } from "@/constants/theme/spacing";
-import HomePageScreen from "@/screens/HomePageScreen";
+import HomeScreen from "@/screens/HomeScreen";
 import { ScrollView, StyleSheet } from "react-native";
 
 export default function Index() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <HomePageScreen />
+      <HomeScreen />
     </ScrollView>
   );
 }

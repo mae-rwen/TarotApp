@@ -57,11 +57,14 @@ export const colors = {
   primary: palette.main500,
   secondary: palette.secondary200,
   accent: palette.accent500,
-  text: palette.main500,
-  textDim: palette.main400,
   background: palette.secondary200,
+  text: palette.main500,
+  tint: palette.accent300,
+  shadow: palette.accent600,
   border: palette.accent300,
-  tint: palette.main500,
+  textDim: palette.main400,
+
+  // other colors to define
   separator: palette.accent200,
   error: palette.angry500,
   errorBackground: palette.angry100,

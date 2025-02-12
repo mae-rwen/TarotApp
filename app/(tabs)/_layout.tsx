@@ -1,3 +1,4 @@
+import { Icon } from "@/components/Icon";
 import { colors } from "@/constants/theme/colors";
 import { Tabs } from "expo-router";
 
@@ -18,13 +19,33 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="(home)"
-        options={{ title: "Home", headerShown: false }}
+        name="index"
+        options={{
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon name="tarotCard" focused={focused} size={28} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(calculator)"
+        options={{
+          title: "Calculator",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon name="crystalBall" focused={focused} size={28} />
+          ),
+        }}
       />
       <Tabs.Screen
         name="about"
         options={{
           title: "About",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Icon name="magicBook" focused={focused} size={28} />
+          ),
         }}
       />
     </Tabs>

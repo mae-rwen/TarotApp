@@ -11,6 +11,11 @@ const sizeStyles = {
   xxs: { fontSize: 12, lineHeight: 14 },
 };
 
+const fontFamilyStyles = {
+  default: { fontFamily: "System" },
+  serif: { fontFamily: "serif" },
+};
+
 const fontWeightStyles = {
   light: { fontWeight: 300 },
   normal: { fontWeight: 400 },
@@ -24,13 +29,14 @@ const fontColorsStyles = {
   disabled: { color: colors.textDim },
   false: { color: colors.error },
   true: { color: colors.success },
-  white: { color: colors.white },
+  white: { color: colors.secondary },
 };
 
 const baseStyle = {
   ...sizeStyles.sm,
   ...fontWeightStyles.normal,
   ...fontColorsStyles.standard,
+  ...fontFamilyStyles.default,
 };
 
 export const textPresets = {
@@ -40,6 +46,13 @@ export const textPresets = {
     ...baseStyle,
     ...sizeStyles.xxl,
     ...fontWeightStyles.semiBold,
+  } as TextStyle,
+
+  h1s: {
+    ...baseStyle,
+    ...sizeStyles.xxl,
+    ...fontWeightStyles.bold,
+    ...fontFamilyStyles.serif,
   } as TextStyle,
 
   h2: {

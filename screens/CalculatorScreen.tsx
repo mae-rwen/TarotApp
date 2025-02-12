@@ -20,7 +20,7 @@ type userDetails = {
 
 type userData = Record<string, userDetails>;
 
-const HomePageScreen = () => {
+const CalculatorScreen = () => {
   const [newTPmodalVisible, setNewTPmodalVisible] = useState<boolean>(false);
   const [datePickerVisible, setDatePickerVisible] = useState<boolean>(false);
   const [confirmModalVisible, setConfirmModalVisible] =
@@ -140,20 +140,20 @@ const HomePageScreen = () => {
   const saveData = async () => {
     if (temporaryData) {
       try {
-        const existingTPPData = await AsyncStorage.getItem("tppData");
-        const parsedData = existingTPPData ? JSON.parse(existingTPPData) : {};
+        const existingData = await AsyncStorage.getItem("tppData");
+        const parsedData = existingData ? JSON.parse(existingData) : {};
         parsedData[temporaryData.name] = temporaryData.details;
         await AsyncStorage.setItem("tppData", JSON.stringify(parsedData));
 
         setSavedData((prevData) => [...prevData, temporaryData]);
-        const newTPP = temporaryData;
+        const newPortrait = temporaryData;
         setTemporaryData(null);
         setConfirmModalVisible(false);
         setInputBoxValue("");
 
         router.push({
           pathname: "/portrait",
-          params: { user: JSON.stringify(newTPP) },
+          params: { user: JSON.stringify(newPortrait) },
         });
       } catch (error) {
         console.error("Error saving data:", error);
@@ -176,7 +176,7 @@ const HomePageScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={textPresets.h1}>Tarot App</Text>
+      <Text style={textPresets.h1s}>Tarot App</Text>
       <TarotCard source={cardRegistry.revers} style={styles.welcomeCard} />
       <View style={styles.btnContainer}>
         <Button label="Create a portrait" onPress={newPortrait} />
@@ -287,7 +287,7 @@ const HomePageScreen = () => {
   );
 };
 
-export default HomePageScreen;
+export default CalculatorScreen;
 
 const styles = StyleSheet.create({
   container: { alignItems: "center", gap: spacing.lg },

@@ -1,9 +1,12 @@
 import { Stack } from "expo-router";
 
-export default function HomeLayout() {
+export default function CalculatorLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" options={{ title: "Home" }} />
+      <Stack.Screen
+        name="calculator"
+        options={{ title: "Calculator", headerShown: false }}
+      />
       <Stack.Screen
         name="portrait"
         options={({ route }) => ({

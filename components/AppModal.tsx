@@ -70,7 +70,7 @@ export default function AppModal({
                 value={inputValue}
                 onChangeText={setInputValue}
                 textAlign="center"
-                placeholderTextColor={colors.palette.accent300}
+                placeholderTextColor={colors.tint}
               />
             )}
           </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: colors.accent,
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: spacing.sm,
     borderWidth: 1,
-    borderColor: colors.palette.accent300,
+    borderColor: colors.border,
     borderRadius: 4,
     justifyContent: "center",
     alignItems: "center",
