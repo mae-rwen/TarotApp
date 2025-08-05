@@ -42,18 +42,24 @@ const baseStyle = {
 export const textPresets = {
   default: baseStyle as TextStyle,
 
-  h1: {
-    ...baseStyle,
-    ...sizeStyles.xxl,
-    ...fontWeightStyles.semiBold,
-  } as TextStyle,
+  h1: [
+    {
+      ...baseStyle,
+      ...sizeStyles.xxl,
+      ...fontWeightStyles.semiBold,
+    } as TextStyle,
+    { textAlign: "center" },
+  ],
 
-  h1s: {
-    ...baseStyle,
-    ...sizeStyles.xxl,
-    ...fontWeightStyles.bold,
-    ...fontFamilyStyles.serif,
-  } as TextStyle,
+  h1s: [
+    {
+      ...baseStyle,
+      ...sizeStyles.xxl,
+      ...fontWeightStyles.bold,
+      ...fontFamilyStyles.serif,
+    } as TextStyle,
+    { textAlign: "center" },
+  ],
 
   h2: {
     ...baseStyle,

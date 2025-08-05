@@ -76,6 +76,7 @@ const CalculatorScreen = () => {
     setInputBoxValue("");
     setSelectedUser(null);
     setActionModalVisible(false);
+    console.log("Cancelled all modals and reset state");
   };
 
   useEffect(() => {
@@ -103,11 +104,13 @@ const CalculatorScreen = () => {
 
   const newPortrait = () => {
     setNewTPmodalVisible(true);
+    console.log("Create new portrait button pressed");
   };
 
   const saveNewPortrait = () => {
     setNewTPmodalVisible(false);
     setDatePickerVisible(true);
+    console.log("Save name button pressed");
   };
 
   const onDateChange = async (
@@ -133,8 +136,10 @@ const CalculatorScreen = () => {
       setTemporaryData(tempData);
       setDatePickerVisible(false);
       setConfirmModalVisible(true);
+      console.log("Date selected:", tempData);
     } else {
-      setDatePickerVisible(false);
+      cancel();
+      console.log("Date selection cancelled or invalid");
     }
   };
 
@@ -156,6 +161,7 @@ const CalculatorScreen = () => {
           pathname: "/portrait",
           params: { user: JSON.stringify(newPortrait) },
         });
+        console.log("Data saved successfully:", newPortrait);
       } catch (error) {
         console.error("Error saving data:", error);
       }
@@ -165,6 +171,7 @@ const CalculatorScreen = () => {
   const handleDataClick = (data: { name: string; details: userDetails }) => {
     setSelectedUser(data);
     setActionModalVisible(true);
+    console.log("Data clicked:", data);
   };
 
   const goToPortrait = () => {
@@ -173,6 +180,7 @@ const CalculatorScreen = () => {
       params: { user: JSON.stringify(selectedUser) },
     });
     setActionModalVisible(false);
+    console.log("Navigating to portrait for:", selectedUser);
   };
 
   return (
@@ -183,14 +191,19 @@ const CalculatorScreen = () => {
           Tarot Psychological Portrait is used to examine and analyze the innate
           potentials of a given individual, their talents and predispositions,
           the influences they were subjected to in childhood and to which they
-          are susceptible in adult life. The best ways to realize emerging
-          opportunities, significant and turning moments in life, as well as
-          those hidden in the subconscious fears, complexes or, as it is called
-          in esoteric language - things to work through. Using the archetypes
-          written in the Major Arcana of the Tarot, substituting the appropriate
-          cards for the numbers resulting from the date of birth allows one to
-          see something like a genetic code with which a person comes into the
-          world.
+          are susceptible in adult life.
+        </Text>
+        <Text style={textPresets.copy}>
+          The best ways to realize emerging opportunities, significant and
+          turning moments in life, as well as those hidden in the subconscious
+          fears, complexes or, as it is called in esoteric language - things to
+          work through.
+        </Text>
+        <Text style={textPresets.copy}>
+          Using the archetypes written in the Major Arcana of the Tarot,
+          substituting the appropriate cards for the numbers resulting from the
+          date of birth allows one to see something like a genetic code with
+          which a person comes into the world.
         </Text>
         <Text style={textPresets.copy}>
           This method, created by Alla Alicja Chrzanowska is taught in
@@ -219,7 +232,7 @@ const CalculatorScreen = () => {
         visible={newTPmodalVisible}
         title="Name for new portrait"
         inputBox={true}
-        placeholderValue="Name for new TPP"
+        placeholderValue="Please give a name for the portrait"
         inputValue={inputBoxValue}
         setInputValue={setInputBoxValue}
         buttons={[
@@ -231,6 +244,7 @@ const CalculatorScreen = () => {
               }
             },
             preset: "filled",
+            disabled: inputBoxValue.length < 3,
           },
           {
             label: "Cancel",

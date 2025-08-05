@@ -7,19 +7,34 @@ type ButtonProps = {
   label: string;
   preset?: "primary" | "filled" | "reversed";
   onPress?: () => void;
+  disabled?: boolean;
 };
 
 export default function Button({
   label,
   preset = "primary",
   onPress,
+  disabled = false,
 }: ButtonProps) {
   return (
     <Pressable
-      style={[styles.buttonContainer, styles[`${preset}BG`]]}
+      style={[
+        styles.buttonContainer,
+        styles[`${preset}BG`],
+        disabled && styles.disabledBG,
+      ]}
       onPress={onPress}
+      disabled={disabled}
     >
-      <Text style={[textPresets.copyBold, styles[`${preset}Tx`]]}>{label}</Text>
+      <Text
+        style={[
+          textPresets.copyBold,
+          styles[`${preset}Tx`],
+          disabled && styles.disabledTx,
+        ]}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 }
@@ -56,5 +71,11 @@ const styles = StyleSheet.create({
   },
   reversedTx: {
     color: colors.palette.secondary100,
+  },
+  disabledBG: {
+    opacity: 0.5,
+  },
+  disabledTx: {
+    color: colors.accent,
   },
 });

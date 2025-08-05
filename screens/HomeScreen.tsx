@@ -11,7 +11,7 @@ const HomeScreen = () => {
       <Text style={textPresets.h1s}>Tarot App</Text>
       <TarotCard source={cardRegistry.revers} style={styles.welcomeCard} />
       <View style={styles.contentContainer}>
-        <Text style={textPresets.copy}> More to be added</Text>
+        <Text style={textPresets.copy}>⁛</Text>
       </View>
     </View>
   );

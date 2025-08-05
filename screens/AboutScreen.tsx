@@ -18,8 +18,7 @@ const AboutScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.contentBox}>
-        <Text style={textPresets.copy}>More to come</Text>
-        <Text style={textPresets.copy}>Icon used:</Text>
+        <Text style={textPresets.copy}>More to come in the future</Text>
         <TouchableOpacity onPress={linkToIcons}>
           <Text style={textPresets.copy}>Magic icons provided by Flaticon</Text>
         </TouchableOpacity>

@@ -17,6 +17,7 @@ type ModalButton = {
   label: string;
   onPress: () => void;
   preset?: "primary" | "filled" | "reversed";
+  disabled?: boolean;
 };
 
 type AppModalProps = {
@@ -83,6 +84,7 @@ export default function AppModal({
                 label={button.label}
                 onPress={button.onPress}
                 preset={button.preset || "primary"}
+                disabled={button.disabled}
               />
             ))}
           </View>
